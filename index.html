@@ -429,6 +429,7 @@
       grid-template-rows: 180px 180px;
       gap: 12px;
     }
+
     .ph{
       border-radius: var(--radius);
       background: var(--card-2);
@@ -439,28 +440,47 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      text-align:center;
-      padding: 16px;
-      color: rgba(15,23,42,.80);
-      font-weight:900;
-      letter-spacing:.2px;
-      line-height:1.2;
       backdrop-filter: blur(12px);
+    }
+    .ph.big{ grid-row: 1 / span 2; }
+    .ph.small{ border-radius: var(--radius2); }
+
+    /* Imagen real dentro de cada item */
+    .ph img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      transform: scale(1.01);
+    }
+    /* Etiqueta inferior */
+    .ph .cap{
+      position:absolute;
+      left:10px;
+      right:10px;
+      bottom:10px;
+      padding:10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.88);
+      border:1px solid rgba(255,255,255,.70);
+      box-shadow: 0 14px 28px rgba(15,23,42,.10);
+      color: rgba(15,23,42,.88);
+      font-weight:950;
+      letter-spacing:.2px;
+      line-height:1.1;
+      font-size: 13px;
+      backdrop-filter: blur(14px);
     }
     .ph::before{
       content:"";
       position:absolute;
-      inset:-2px;
-      background:
-        radial-gradient(220px 220px at 20% 10%, rgba(255,90,165,.18), transparent 60%),
-        radial-gradient(260px 240px at 90% 35%, rgba(39,215,200,.14), transparent 60%),
-        radial-gradient(260px 240px at 40% 115%, rgba(255,138,76,.14), transparent 60%);
-      filter: blur(10px);
-      opacity:.9;
+      inset:0;
+      background: linear-gradient(180deg, rgba(15,23,42,0) 55%, rgba(15,23,42,.10) 100%);
+      pointer-events:none;
+      z-index:1;
     }
-    .ph span{ position:relative; z-index:1; }
-    .ph.big{ grid-row: 1 / span 2; }
-    .ph.small{ border-radius: var(--radius2); }
+    .ph img{ z-index:0; }
+    .ph .cap{ z-index:2; }
 
     .packs{
       display:grid;
@@ -628,7 +648,7 @@
       main{ padding-top: 18px; }
       .hero-inner{ padding: 20px 16px; }
       .steps{ grid-template-columns: 1fr; }
-      body::after{ opacity:.38; } /* un toque más visible en móvil */
+      body::after{ opacity:.38; }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -731,24 +751,47 @@
       </section>
 
       <section class="section" id="trabajos">
-        <h2>Trabajos (ejemplo de galería)</h2>
-        <p class="lead">Acá irían fotos reales de trabajos. En la demo queda este layout listo para reemplazar por imágenes.</p>
+        <h2>Trabajos (galería)</h2>
+        <p class="lead">Fotos cargadas según el orden que pasaste.</p>
 
         <div class="chiprow" role="tablist" aria-label="Filtro de galería">
           <div class="chip active" data-filter="all" role="tab" aria-selected="true">Todo</div>
-          <div class="chip" data-filter="branding" role="tab" aria-selected="false">Branding</div>
           <div class="chip" data-filter="papeleria" role="tab" aria-selected="false">Papelería</div>
-          <div class="chip" data-filter="stickers" role="tab" aria-selected="false">Stickers</div>
           <div class="chip" data-filter="packaging" role="tab" aria-selected="false">Packaging</div>
+          <div class="chip" data-filter="stickers" role="tab" aria-selected="false">Stickers</div>
           <div class="chip" data-filter="eventos" role="tab" aria-selected="false">Eventos</div>
         </div>
 
         <div class="gallery" id="gallery">
-          <div class="ph big" data-cat="branding"><span>Imagen grande<br/>Trabajo destacado</span></div>
-          <div class="ph small" data-cat="papeleria"><span>Tarjetas / Papelería</span></div>
-          <div class="ph small" data-cat="stickers"><span>Stickers</span></div>
-          <div class="ph small" data-cat="packaging"><span>Packaging</span></div>
-          <div class="ph small" data-cat="eventos"><span>Eventos</span></div>
+          <!-- 1) Imagen grande - Trabajo destacado -->
+          <div class="ph big" data-cat="all">
+            <img src="https://iili.io/fbsDsVV.png" alt="Trabajo destacado" loading="lazy" />
+            <div class="cap">Trabajo destacado</div>
+          </div>
+
+          <!-- 2) Tarjetas / Papelería -->
+          <div class="ph small" data-cat="papeleria">
+            <img src="https://iili.io/fbsD6Dx.png" alt="Tarjetas / Papelería" loading="lazy" />
+            <div class="cap">Tarjetas / Papelería</div>
+          </div>
+
+          <!-- 3) Packaging -->
+          <div class="ph small" data-cat="packaging">
+            <img src="https://iili.io/fbsDLiB.png" alt="Packaging" loading="lazy" />
+            <div class="cap">Packaging</div>
+          </div>
+
+          <!-- 4) Stickers -->
+          <div class="ph small" data-cat="stickers">
+            <img src="https://iili.io/fbsDZKP.png" alt="Stickers" loading="lazy" />
+            <div class="cap">Stickers</div>
+          </div>
+
+          <!-- 5) Eventos -->
+          <div class="ph small" data-cat="eventos">
+            <img src="https://iili.io/fbsDtl1.png" alt="Eventos" loading="lazy" />
+            <div class="cap">Eventos</div>
+          </div>
         </div>
       </section>
 
@@ -859,7 +902,6 @@
             </div>
           </div>
         </div>
-
       </section>
 
       <footer>
@@ -893,7 +935,7 @@
       a.addEventListener('click', () => mnav.classList.remove('show'));
     });
 
-    // Filtro demo galería
+    // Filtro galería
     const chips = document.querySelectorAll('.chip');
     const items = document.querySelectorAll('#gallery .ph');
     chips.forEach(ch => {
@@ -904,7 +946,7 @@
         const f = ch.dataset.filter;
         items.forEach(it => {
           const cat = it.dataset.cat;
-          if (f === 'all' || cat === f) {
+          if (f === 'all' || cat === f || cat === 'all') {
             it.style.display = 'flex';
           } else {
             it.style.display = 'none';
