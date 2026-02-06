@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,6 +20,9 @@
   <meta name="twitter:description" content="Papelería & Diseño Gráfico para emprendedores y marcas. Envíos a todo el país (AR). Salta: Stand 25 de Mayo 252." />
   <meta name="twitter:image" content="https://iili.io/fbsIgae.png" />
 
+  <!-- Favicon -->
+  <link rel="icon" href="https://iili.io/fbsIgae.png" type="image/png" />
+
   <style>
     :root{
       --ink:#0f172a;
@@ -32,7 +36,6 @@
 
       --card: rgba(255,255,255,.90);
       --card-2: rgba(255,255,255,.86);
-      --stroke: rgba(255,255,255,.55);
       --shadow: 0 18px 55px rgba(15, 23, 42, .14);
       --shadow2: 0 10px 26px rgba(15, 23, 42, .10);
 
@@ -41,17 +44,29 @@
       --max: 1120px;
 
       --overlay-img: url('https://iili.io/fbsRkOu.md.jpg');
-      --logo-img: 'https://iili.io/fbsIgae.png';
+      --wa-icon: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg';
     }
 
+    /* ===== FIX CENTRADO MÓVIL / ANTI OVERFLOW ===== */
+    html, body{
+      width:100%;
+      max-width:100%;
+      overflow-x:hidden !important;
+    }
     *{ box-sizing:border-box; }
+    img, svg, video, canvas{
+      max-width:100%;
+      height:auto;
+    }
+    body{ position:relative; }
+    /* ============================================ */
+
     html,body{ height:100%; }
     body{
       margin:0;
       color:var(--ink);
       background: var(--bg);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      overflow-x:hidden;
     }
 
     /* Fondo base + overlay SIN RECORTE */
@@ -75,19 +90,19 @@
       background-image: var(--overlay-img);
       background-repeat:no-repeat;
       background-position:center;
-      background-size:contain; /* CLAVE: no recorta */
-      opacity:.34;            /* CLAVE: se ve pero no ensucia */
+      background-size:contain; /* no recorta */
+      opacity:.34;            /* visible sin ensuciar */
       pointer-events:none;
       filter: contrast(1.05) saturate(1.05);
     }
 
-    /* Helper layout */
+    /* Contenedor siempre centrado */
     .wrap{
-      width:min(var(--max), calc(100% - 32px));
-      margin:0 auto;
+      width:min(var(--max), 100%);
+      margin-inline:auto;
+      padding-inline:16px;  /* clave en móviles */
     }
 
-    /* Topbar */
     header{
       position:sticky;
       top:0;
@@ -117,27 +132,11 @@
       background:#fff;
       object-fit:contain;
     }
-    .brand .txt{
-      display:flex;
-      flex-direction:column;
-      line-height:1.05;
-    }
-    .brand .name{
-      font-weight:850;
-      letter-spacing:.3px;
-      font-size:15px;
-    }
-    .brand .tag{
-      font-size:12px;
-      color:var(--muted);
-      margin-top:2px;
-    }
+    .brand .txt{ display:flex; flex-direction:column; line-height:1.05; }
+    .brand .name{ font-weight:850; letter-spacing:.3px; font-size:15px; }
+    .brand .tag{ font-size:12px; color:var(--muted); margin-top:2px; }
 
-    nav{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
+    nav{ display:flex; align-items:center; gap:10px; }
     nav a{
       text-decoration:none;
       color:var(--ink);
@@ -149,17 +148,9 @@
       transition: transform .15s ease, background .15s ease, opacity .15s ease;
       white-space:nowrap;
     }
-    nav a:hover{
-      background: rgba(255,255,255,.55);
-      opacity:1;
-      transform: translateY(-1px);
-    }
+    nav a:hover{ background: rgba(255,255,255,.55); opacity:1; transform: translateY(-1px); }
 
-    .actions{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
+    .actions{ display:flex; align-items:center; gap:10px; }
 
     .btn{
       display:inline-flex;
@@ -180,33 +171,24 @@
       white-space:nowrap;
     }
     .btn:hover{ transform: translateY(-1px); filter: saturate(1.06); }
-    .btn:active{ transform: translateY(0px); }
-
     .btn.primary{
       border:0;
       color:white;
       background: linear-gradient(135deg, var(--g1), var(--g2), var(--g3));
       box-shadow: 0 18px 40px rgba(255,90,165,.20), 0 12px 28px rgba(255,138,76,.15);
     }
-    .btn.primary:hover{
-      box-shadow: 0 22px 55px rgba(255,90,165,.24), 0 16px 34px rgba(255,138,76,.18);
-    }
 
-    /* Mobile menu */
     .hamb{
       display:none;
       border:1px solid rgba(255,255,255,.55);
-      background: rgba(255,255,255,.78); /* sin transparencia fuerte */
+      background: rgba(255,255,255,.78);
       border-radius:12px;
       padding:10px 12px;
       font-weight:900;
       box-shadow: var(--shadow2);
       cursor:pointer;
     }
-    .mnav{
-      display:none;
-      padding:0 0 12px 0;
-    }
+    .mnav{ display:none; padding:0 0 12px 0; }
     .mnav a{
       display:block;
       text-decoration:none;
@@ -220,10 +202,7 @@
       box-shadow: var(--shadow2);
     }
 
-    /* Hero */
-    main{
-      padding:28px 0 70px;
-    }
+    main{ padding:28px 0 70px; }
     .hero{
       position:relative;
       overflow:hidden;
@@ -275,12 +254,7 @@
       line-height:1.5;
       max-width: 56ch;
     }
-    .meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin:14px 0 0;
-    }
+    .meta{ display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 0; }
     .badge{
       display:inline-flex;
       align-items:center;
@@ -294,12 +268,7 @@
       color: rgba(15,23,42,.86);
       box-shadow: var(--shadow2);
     }
-    .cta{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:16px;
-    }
+    .cta{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
 
     .hero-logo{
       display:flex;
@@ -339,30 +308,14 @@
       background: transparent;
     }
 
-    /* Sections */
-    .section{
-      margin-top: 22px;
-    }
-    .section h2{
-      margin: 0 0 10px;
-      font-size: clamp(18px, 2.4vw, 24px);
-      letter-spacing:-.2px;
-    }
-    .lead{
-      margin:0 0 14px;
-      color:var(--muted);
-      line-height:1.55;
-      max-width: 72ch;
-    }
+    .section{ margin-top: 22px; }
+    .section h2{ margin: 0 0 10px; font-size: clamp(18px, 2.4vw, 24px); letter-spacing:-.2px; }
+    .lead{ margin:0 0 14px; color:var(--muted); line-height:1.55; max-width: 72ch; }
 
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
+    .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
     .card{
       border-radius: var(--radius);
-      background: var(--card);
+      background: rgba(255,255,255,.90);
       border:1px solid rgba(255,255,255,.65);
       box-shadow: var(--shadow2);
       padding: 16px 16px 14px;
@@ -382,25 +335,10 @@
       opacity:.9;
     }
     .card > *{ position:relative; z-index:1; }
+    .card h3{ margin: 0 0 6px; font-size: 16px; letter-spacing:-.15px; }
+    .card p{ margin:0 0 12px; color: var(--muted); line-height:1.55; font-size: 14px; }
 
-    .card h3{
-      margin: 0 0 6px;
-      font-size: 16px;
-      letter-spacing:-.15px;
-    }
-    .card p{
-      margin:0 0 12px;
-      color: var(--muted);
-      line-height:1.55;
-      font-size: 14px;
-    }
-
-    .chiprow{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin: 12px 0 10px;
-    }
+    .chiprow{ display:flex; flex-wrap:wrap; gap:8px; margin: 12px 0 10px; }
     .chip{
       display:inline-flex;
       align-items:center;
@@ -429,10 +367,9 @@
       grid-template-rows: 180px 180px;
       gap: 12px;
     }
-
     .ph{
       border-radius: var(--radius);
-      background: var(--card-2);
+      background: rgba(255,255,255,.86);
       border:1px solid rgba(255,255,255,.65);
       box-shadow: var(--shadow2);
       overflow:hidden;
@@ -445,7 +382,6 @@
     .ph.big{ grid-row: 1 / span 2; }
     .ph.small{ border-radius: var(--radius2); }
 
-    /* Imagen real dentro de cada item */
     .ph img{
       width:100%;
       height:100%;
@@ -453,7 +389,6 @@
       display:block;
       transform: scale(1.01);
     }
-    /* Etiqueta inferior */
     .ph .cap{
       position:absolute;
       left:10px;
@@ -482,14 +417,10 @@
     .ph img{ z-index:0; }
     .ph .cap{ z-index:2; }
 
-    .packs{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-    }
+    .packs{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
     .pricecard{
       border-radius: var(--radius);
-      background: var(--card);
+      background: rgba(255,255,255,.90);
       border:1px solid rgba(255,255,255,.65);
       box-shadow: var(--shadow2);
       padding: 16px;
@@ -519,11 +450,7 @@
     }
     .pricecard li{ margin: 6px 0; }
 
-    .steps{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
+    .steps{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
     .step{
       border-radius: var(--radius2);
       background: rgba(255,255,255,.86);
@@ -544,13 +471,8 @@
     .step h4{ margin:0 0 6px; font-size:14px; }
     .step p{ margin:0; color:var(--muted); line-height:1.5; font-size:13px; }
 
-    .contact{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
+    .contact{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .contact .card{ padding: 16px; }
-    .contact p{ margin: 6px 0 0; }
     .smalltxt{ font-size:13px; color:var(--muted); line-height:1.55; }
 
     footer{
@@ -579,7 +501,7 @@
     }
     footer a:hover{ border-bottom-color: rgba(15,23,42,.55); }
 
-    /* WhatsApp floating button */
+    /* WhatsApp floating button (logo oficial) */
     .wapp{
       position: fixed;
       right: 16px;
@@ -601,13 +523,20 @@
     .wapp .bubble{
       width: 38px; height: 38px;
       border-radius: 14px;
-      background: linear-gradient(135deg, rgba(39,215,200,.26), rgba(255,90,165,.20), rgba(255,211,106,.22));
+      background: rgba(255,255,255,.92);
       border:1px solid rgba(255,255,255,.72);
       display:flex;
       align-items:center;
       justify-content:center;
-      font-weight:950;
       box-shadow: 0 14px 28px rgba(15,23,42,.10);
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+    .wapp .bubble img{
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      display:block;
     }
     .wapp .txt{
       display:flex;
@@ -625,7 +554,6 @@
       max-width: 210px;
     }
 
-    /* Responsive */
     @media (max-width: 980px){
       .hero-inner{ grid-template-columns: 1fr; }
       .hero-logo{ padding-top: 0; }
@@ -639,7 +567,6 @@
       .ph.big{ grid-row: 1 / span 2; grid-column: 1 / span 2; }
       .contact{ grid-template-columns: 1fr; }
     }
-
     @media (max-width: 720px){
       nav{ display:none; }
       .hamb{ display:inline-flex; }
@@ -650,7 +577,6 @@
       .steps{ grid-template-columns: 1fr; }
       body::after{ opacity:.38; }
     }
-
     @media (prefers-reduced-motion: reduce){
       *{ scroll-behavior:auto !important; transition:none !important; }
     }
@@ -763,31 +689,26 @@
         </div>
 
         <div class="gallery" id="gallery">
-          <!-- 1) Imagen grande - Trabajo destacado -->
           <div class="ph big" data-cat="all">
             <img src="https://iili.io/fbsDsVV.png" alt="Trabajo destacado" loading="lazy" />
             <div class="cap">Trabajo destacado</div>
           </div>
 
-          <!-- 2) Tarjetas / Papelería -->
           <div class="ph small" data-cat="papeleria">
             <img src="https://iili.io/fbsD6Dx.png" alt="Tarjetas / Papelería" loading="lazy" />
             <div class="cap">Tarjetas / Papelería</div>
           </div>
 
-          <!-- 3) Packaging -->
           <div class="ph small" data-cat="packaging">
             <img src="https://iili.io/fbsDLiB.png" alt="Packaging" loading="lazy" />
             <div class="cap">Packaging</div>
           </div>
 
-          <!-- 4) Stickers -->
           <div class="ph small" data-cat="stickers">
             <img src="https://iili.io/fbsDZKP.png" alt="Stickers" loading="lazy" />
             <div class="cap">Stickers</div>
           </div>
 
-          <!-- 5) Eventos -->
           <div class="ph small" data-cat="eventos">
             <img src="https://iili.io/fbsDtl1.png" alt="Eventos" loading="lazy" />
             <div class="cap">Eventos</div>
@@ -913,8 +834,11 @@
     </div>
   </main>
 
+  <!-- WhatsApp flotante con logo oficial -->
   <a class="wapp" href="https://wa.me/3876153446" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
-    <div class="bubble">WA</div>
+    <div class="bubble">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+    </div>
     <div class="txt">
       <strong>WhatsApp</strong>
       <span>Consultas y pedidos</span>
@@ -922,20 +846,13 @@
   </a>
 
   <script>
-    // Año footer
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Menú móvil
     const hamb = document.getElementById('hamb');
     const mnav = document.getElementById('mnav');
-    hamb.addEventListener('click', () => {
-      mnav.classList.toggle('show');
-    });
-    [...mnav.querySelectorAll('a')].forEach(a => {
-      a.addEventListener('click', () => mnav.classList.remove('show'));
-    });
+    hamb.addEventListener('click', () => mnav.classList.toggle('show'));
+    [...mnav.querySelectorAll('a')].forEach(a => a.addEventListener('click', () => mnav.classList.remove('show')));
 
-    // Filtro galería
     const chips = document.querySelectorAll('.chip');
     const items = document.querySelectorAll('#gallery .ph');
     chips.forEach(ch => {
@@ -946,14 +863,12 @@
         const f = ch.dataset.filter;
         items.forEach(it => {
           const cat = it.dataset.cat;
-          if (f === 'all' || cat === f || cat === 'all') {
-            it.style.display = 'flex';
-          } else {
-            it.style.display = 'none';
-          }
+          if (f === 'all' || cat === f || cat === 'all') it.style.display = 'flex';
+          else it.style.display = 'none';
         });
       });
     });
   </script>
 </body>
 </html>
+```
